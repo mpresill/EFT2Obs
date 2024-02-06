@@ -23,8 +23,9 @@ Here some care is needed to adapt the cards from CMS genproduction, e.g.:
 ```
 
 ### Prepare MG cards
-Prepare MG cards: at the setup step it clones the existing cards in the `cads/process` folder, but we can modify reweighting card acconrdin to following config file. 
-Prepare congif `.json` file coding the reweighting options used
+Prepare MG cards: at the setup step, the code clones the existing cards in the `cads/process` folder, but it is still possible to modify reweighting card and param card.
+- reweight card:
+Prepare congif `.json` file coding the reweighting options used:
 ```sh
 python scripts/make_config.py -p WWjjTolnulnu_SS_ewk_dim6 -o config_WWjjTolnulnu_SS_ewk_dim6.json   \
 --pars SMEFT:2,7,9,5,4,21,22,24,25,29,30,31,32,33,34 --def-val 0.01 --def-sm 0.0 --def-gen 0.0
@@ -45,16 +46,19 @@ Note the following SMEFT operators numbering scheme in the ouput:
     - [32] cqq11
     - [33] cqq3
     - [34] cqq31
-Since the param card command in the following line does no work
+Then we set up the reweighting card with the following command:
+```sh
+python scripts/make_reweight_card.py config_WWjjTolnulnu_SS_ewk_dim6.json cards/WWjjTolnulnu_SS_ewk_dim6/reweight_card.dat
+```
+
+- param card:    
+Since the param card command in the following line does not work
 ```sh
 python scripts/make_param_card.py -p zh-WWjjTolnulnu_SS_ewk_dim6 -c config_WWjjTolnulnu_SS_ewk_dim6.json \
 -o cards/WWjjTolnulnu_SS_ewk_dim6/
 ```
 we simply copy the existing default param_card.dat from `MG5_aMC_v2_6_7/WWjjTolnulnu_SS_ewk_dim6/Cards/` to `cards/WWjjTolnulnu_SS_ewk_dim6/`
-Then we set up the reweighting card with the following command:
-```sh
-python scripts/make_reweight_card.py config_WWjjTolnulnu_SS_ewk_dim6.json cards/WWjjTolnulnu_SS_ewk_dim6/reweight_card.dat
-```
+
 
 ### Make the gridpack (along with the reweighting module)
 ```sh 
